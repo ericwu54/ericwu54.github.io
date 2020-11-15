@@ -1,0 +1,78 @@
+[meta title:"TEST" description:"Short description of your project" /]
+
+[Header
+  fullWidth:true
+  title:"Homework 10"
+  subtitle:"-"
+  author:"haonan wu"
+  authorLink:"https://idyll-lang.org"
+  date:`(new Date()).toDateString()`
+  background:"#222222"
+  color:"#ffffff"
+   /]
+
+# build in component
+[var name:"selectVal" value:"test1" /]
+[Select value:selectVal options:`["test1", "test2"]`  /]
+
+# visualization
+##this is how the the data set looks like
+[data name:"musicdata" source:"data.csv" /]
+[Table data:musicdata /]
+
+##and here are some graph I am interested in.
+[IdyllVegaLite data:musicdata spec:`{
+  mark: "point",
+  encoding: {
+    x: {
+      field: "instrumentalness",
+      type: "quantitative",
+      axis: {title: "instrumentalness"}
+    },
+    y: {
+      field: "acousticness",
+      type: "quantitative",
+      axis: {title: "acousticness"},
+     // scale: { domain: [575, 582] }
+    }
+  }
+}` /]
+
+[IdyllVegaLite data:musicdata spec:`{
+  mark: "point",
+  encoding: {
+    x: {
+      field: "instrumentalness",
+      type: "quantitative",
+      axis: {title: "instrumentalness"}
+    },
+    y: {
+      field: "danceability",
+      type: "quantitative",
+      axis: {title: "danceability"},
+     // scale: { domain: [575, 582] }
+    }
+  }
+}` /]
+
+[IdyllVegaLite data:musicdata spec:`{
+  mark: "point",
+  encoding: {
+    x: {
+      field: "acousticness",
+      type: "quantitative",
+      axis: {title: "acousticness"}
+    },
+    y: {
+      field: "danceability",
+      type: "quantitative",
+      axis: {title: "danceability"},
+     // scale: { domain: [575, 582] }
+    }
+  }
+}` /]
+
+this dataset is find on https://www.kaggle.com/geomack/spotifyclassification.
+it is a song list on sportify 2017, and it measure the the acousticness, danceability and instrumentalness of the song. I am interested in whether is any relationship among these three factors. pairwise, i plot 3 graphs here. I use scatter plot for the graph, and for vegalite, the mark is "point". the reason i use scatter plot is there is a lot of data point in the graph, it is the best presentation.
+
+for the first graph, acousticness against instrumentalness, there is no obvious relationship. And so does danceability against instrumentalness. However, i would say there is a very weak linear relationship for danceability against acousticness, and the slope is negative. 
